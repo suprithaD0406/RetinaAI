@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+
+# Virtual environment
+.venv/
+venv/
+
+# IDE and environment
+.vscode/
+.env
+.env.*
+
+# Dataset
+prepared_data/
+eyedata/
+
+# Model checkpoints
+checkpoints/
+checkpoints_pretrained/
+checkpoints_tversky/
+*.pth
+*.pt
+*.keras
+
+# Generated evaluation outputs
+evaluation_results/
+evaluation_results_threshold_070/
+evaluation_pretrained_validation/
+validation_model_comparison/
+experiment_comparison/
+
+# Python cache and logs
+*.log
+.pytest_cache/
