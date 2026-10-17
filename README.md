@@ -6,7 +6,7 @@ A deep learning project for segmenting hard exudates in retinal fundus images us
 
 RetinaAI compares three segmentation experiments: baseline U-Net, U-Net with Tversky loss, and U-Net with a pretrained EfficientNet-B0 encoder.
 
-**Objective:** Identify hard exudate regions in retinal images using pixel-level segmentation and evaluate performance with Dice, IoU, precision, and recall.
+**Objective:** Identify hard exudate regions using pixel-level segmentation and evaluate performance with Dice, IoU, precision, and recall.
 
 ## Models
 
@@ -25,17 +25,23 @@ The project uses the [IDRiD retinal fundus image dataset](https://idrid.grand-ch
 | Test | 27 |
 | **Total** | **81** |
 
-Images and masks are resized to 512 × 512 pixels. Masks are binary, with background represented by 0 and exudate pixels by 255 in the prepared files.
-
-Please follow the dataset's terms of use.
+Images and masks are resized to 512 × 512 pixels. Prepared masks use 0 for background and 255 for exudate pixels.
 
 ## Tech Stack
 
 - Python 3.11
 - PyTorch and Torchvision
-- NumPy
-- Matplotlib
-- Pillow
+- NumPy, Matplotlib, Pillow
+
+## Visual Results
+
+### Retinal Exudate Segmentation
+
+![Retinal image, ground truth, prediction, and prediction overlay](results/segmentation_result.png)
+
+### Model Comparison
+
+![Best validation Dice scores across the three experiments](results/model_comparison.png)
 
 ## Evaluation Metrics
 
@@ -76,6 +82,9 @@ These results apply to the current checkpoint, data split, preprocessing pipelin
 
 ```text
 RetinaAI/
+├── results/
+│   ├── segmentation_result.png
+│   └── model_comparison.png
 ├── prepared_data/
 ├── checkpoints/
 ├── checkpoints_pretrained/
@@ -96,10 +105,9 @@ RetinaAI/
 ├── inspect_dataset.py
 ├── threshold_analysis.py
 ├── visualize_mask.py
+├── requirements.txt
 └── README.md
 ```
-
-Evaluation outputs and comparison charts are saved in their respective output directories.
 
 ## Setup
 
@@ -109,10 +117,10 @@ Run these commands in Windows PowerShell from the project root:
 py -3.11 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
-pip install torch torchvision numpy matplotlib pillow
+pip install -r requirements.txt
 ```
 
-Install any additional dependencies required by your scripts.
+Install a compatible PyTorch build for your hardware if needed.
 
 ## Running the Project
 
@@ -141,7 +149,7 @@ Train the pretrained model:
 python .\train_pretrained.py
 ```
 
-Evaluate it on validation data:
+Evaluate the pretrained model on validation data:
 
 ```powershell
 python .\evaluate_pretrained.py
@@ -159,7 +167,7 @@ Check each script's configuration before running it, especially the checkpoint p
 ## Limitations
 
 - Only 43 training images are available.
-- Validation uses just 11 images, so results have substantial uncertainty.
+- Validation uses 11 images, so results have substantial uncertainty.
 - Sparse exudate regions create class imbalance.
 - Performance depends on preprocessing, threshold selection, and the data split.
 - The project has not been clinically validated.
